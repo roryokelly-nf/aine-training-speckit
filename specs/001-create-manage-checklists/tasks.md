@@ -23,10 +23,10 @@ Red-Green-Refactor is mandatory: write tests first, verify they fail, then imple
 
 **Purpose**: Initialize project tooling and directory structure
 
-- [ ] T001 Initialize Vite + React + TypeScript project in repository root (`npm create vite@latest . -- --template react-ts`)
-- [ ] T002 Install test dependencies: vitest, @testing-library/react, @testing-library/user-event, @testing-library/jest-dom, jsdom (`npm install -D ...`)
-- [ ] T003 [P] Configure Vitest in vite.config.ts (jsdom environment, globals: true, setupFiles: ['./src/test-setup.ts'])
-- [ ] T004 [P] Create src/test-setup.ts with `import '@testing-library/jest-dom'`
+- [x] T001 Initialize Vite + React + TypeScript project in repository root (`npm create vite@latest . -- --template react-ts`)
+- [x] T002 Install test dependencies: vitest, @testing-library/react, @testing-library/user-event, @testing-library/jest-dom, jsdom (`npm install -D ...`)
+- [x] T003 [P] Configure Vitest in vite.config.ts (jsdom environment, globals: true, setupFiles: ['./src/test-setup.ts'])
+- [x] T004 [P] Create src/test-setup.ts with `import '@testing-library/jest-dom'`
 
 ---
 
@@ -36,12 +36,12 @@ Red-Green-Refactor is mandatory: write tests first, verify they fail, then imple
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 [P] Create Checklist type + `createChecklist()` factory in src/models/Checklist.ts
-- [ ] T006 [P] Create ChecklistItem type + `createChecklistItem()` factory in src/models/ChecklistItem.ts
-- [ ] T007 Write storage service tests in tests/services/storage.test.ts — must FAIL before T008
-- [ ] T008 Implement `loadChecklists`, `saveChecklists`, `clearChecklists` in src/services/storage.ts (depends on T007)
-- [ ] T009 Write EditableText component tests in tests/components/EditableText.test.tsx — must FAIL before T010
-- [ ] T010 Implement EditableText component in src/components/EditableText.tsx (depends on T009)
+- [x] T005 [P] Create Checklist type + `createChecklist()` factory in src/models/Checklist.ts
+- [x] T006 [P] Create ChecklistItem type + `createChecklistItem()` factory in src/models/ChecklistItem.ts
+- [x] T007 Write storage service tests in tests/services/storage.test.ts — must FAIL before T008
+- [x] T008 Implement `loadChecklists`, `saveChecklists`, `clearChecklists` in src/services/storage.ts (depends on T007)
+- [x] T009 Write EditableText component tests in tests/components/EditableText.test.tsx — must FAIL before T010
+- [x] T010 Implement EditableText component in src/components/EditableText.tsx (depends on T009)
 
 **Checkpoint**: Models, storage, and EditableText pass all tests — user story implementation can now begin in parallel
 
@@ -55,17 +55,17 @@ Red-Green-Refactor is mandatory: write tests first, verify they fail, then imple
 
 ### Tests for User Story 1 ⚠️ Write these FIRST — verify they FAIL before implementing
 
-- [ ] T011 [P] [US1] Write CreateChecklistForm tests (empty name rejected, valid name submits, input clears) in tests/components/CreateChecklistForm.test.tsx
-- [ ] T012 [P] [US1] Write ChecklistCard add-item tests (item appears after submit, blank item rejected) in tests/components/ChecklistCard.test.tsx
+- [x] T011 [P] [US1] Write CreateChecklistForm tests (empty name rejected, valid name submits, input clears) in tests/components/CreateChecklistForm.test.tsx
+- [x] T012 [P] [US1] Write ChecklistCard add-item tests (item appears after submit, blank item rejected) in tests/components/ChecklistCard.test.tsx
 
 ### Implementation for User Story 1
 
-- [ ] T013 [US1] Implement CreateChecklistForm component in src/components/CreateChecklistForm.tsx (depends on T011)
-- [ ] T014 [US1] Implement ChecklistCard with add-item form (no toggle/progress yet) in src/components/ChecklistCard.tsx (depends on T012)
-- [ ] T015 [US1] Write ChecklistBoard tests (empty state prompt, list of cards, create flow) in tests/components/ChecklistBoard.test.tsx
-- [ ] T016 [US1] Implement ChecklistBoard component in src/components/ChecklistBoard.tsx (depends on T015)
-- [ ] T017 [US1] Implement App.tsx: load from storage on mount, hold `checklists` state, persist on every mutation, render ChecklistBoard in src/components/App.tsx
-- [ ] T018 [US1] Configure src/main.tsx entry point (render App into #root)
+- [x] T013 [US1] Implement CreateChecklistForm component in src/components/CreateChecklistForm.tsx (depends on T011)
+- [x] T014 [US1] Implement ChecklistCard with add-item form (no toggle/progress yet) in src/components/ChecklistCard.tsx (depends on T012)
+- [x] T015 [US1] Write ChecklistBoard tests (empty state prompt, list of cards, create flow) in tests/components/ChecklistBoard.test.tsx
+- [x] T016 [US1] Implement ChecklistBoard component in src/components/ChecklistBoard.tsx (depends on T015)
+- [x] T017 [US1] Implement App.tsx: load from storage on mount, hold `checklists` state, persist on every mutation, render ChecklistBoard in src/components/App.tsx
+- [x] T018 [US1] Configure src/main.tsx entry point (render App into #root)
 
 **Checkpoint**: User Story 1 is fully functional — create checklist, add items, refresh, items persist
 
@@ -79,14 +79,14 @@ Red-Green-Refactor is mandatory: write tests first, verify they fail, then imple
 
 ### Tests for User Story 2 ⚠️ Write these FIRST — verify they FAIL before implementing
 
-- [ ] T019 [P] [US2] Write ChecklistItemRow tests (renders text + checkbox, toggle calls handler, completed item has strikethrough) in tests/components/ChecklistItemRow.test.tsx
-- [ ] T020 [P] [US2] Add ChecklistCard progress tests (displays X/Y count, all-complete indicator) to tests/components/ChecklistCard.test.tsx
+- [x] T019 [P] [US2] Write ChecklistItemRow tests (renders text + checkbox, toggle calls handler, completed item has strikethrough) in tests/components/ChecklistItemRow.test.tsx
+- [x] T020 [P] [US2] Add ChecklistCard progress tests (displays X/Y count, all-complete indicator) to tests/components/ChecklistCard.test.tsx
 
 ### Implementation for User Story 2
 
-- [ ] T021 [US2] Implement ChecklistItemRow with checkbox toggle + completed visual style in src/components/ChecklistItemRow.tsx (depends on T019)
-- [ ] T022 [US2] Update ChecklistCard to render ChecklistItemRow list + progress display (`completedCount / totalCount`) + all-complete indicator in src/components/ChecklistCard.tsx (depends on T020)
-- [ ] T023 [US2] Wire `onToggleItem` callback through App.tsx state mutations in src/components/App.tsx
+- [x] T021 [US2] Implement ChecklistItemRow with checkbox toggle + completed visual style in src/components/ChecklistItemRow.tsx (depends on T019)
+- [x] T022 [US2] Update ChecklistCard to render ChecklistItemRow list + progress display (`completedCount / totalCount`) + all-complete indicator in src/components/ChecklistCard.tsx (depends on T020)
+- [x] T023 [US2] Wire `onToggleItem` callback through App.tsx state mutations in src/components/App.tsx
 
 **Checkpoint**: User Stories 1 and 2 both work independently — create, add, check, track progress, persist
 
@@ -100,14 +100,14 @@ Red-Green-Refactor is mandatory: write tests first, verify they fail, then imple
 
 ### Tests for User Story 3 ⚠️ Write these FIRST — verify they FAIL before implementing
 
-- [ ] T024 [P] [US3] Add ChecklistCard rename + delete-with-confirmation tests to tests/components/ChecklistCard.test.tsx
-- [ ] T025 [P] [US3] Add ChecklistItemRow edit-text + delete-item tests to tests/components/ChecklistItemRow.test.tsx
+- [x] T024 [P] [US3] Add ChecklistCard rename + delete-with-confirmation tests to tests/components/ChecklistCard.test.tsx
+- [x] T025 [P] [US3] Add ChecklistItemRow edit-text + delete-item tests to tests/components/ChecklistItemRow.test.tsx
 
 ### Implementation for User Story 3
 
-- [ ] T026 [US3] Update ChecklistCard: rename via EditableText, delete button with `window.confirm` guard in src/components/ChecklistCard.tsx (depends on T024)
-- [ ] T027 [US3] Update ChecklistItemRow: inline text edit via EditableText, delete button in src/components/ChecklistItemRow.tsx (depends on T025)
-- [ ] T028 [US3] Wire `onRenameChecklist`, `onDeleteChecklist`, `onEditItem`, `onDeleteItem` callbacks through App.tsx in src/components/App.tsx
+- [x] T026 [US3] Update ChecklistCard: rename via EditableText, delete button with `window.confirm` guard in src/components/ChecklistCard.tsx (depends on T024)
+- [x] T027 [US3] Update ChecklistItemRow: inline text edit via EditableText, delete button in src/components/ChecklistItemRow.tsx (depends on T025)
+- [x] T028 [US3] Wire `onRenameChecklist`, `onDeleteChecklist`, `onEditItem`, `onDeleteItem` callbacks through App.tsx in src/components/App.tsx
 
 **Checkpoint**: All three user stories independently functional and tested
 
@@ -117,9 +117,9 @@ Red-Green-Refactor is mandatory: write tests first, verify they fail, then imple
 
 **Purpose**: Final validation and production readiness
 
-- [ ] T029 [P] Run full test suite and confirm all tests pass (`npm test -- --run`)
-- [ ] T030 [P] Run production build and verify bundle size < 5MB (`npm run build`)
-- [ ] T031 Manual validation: follow all scenarios in specs/001-create-manage-checklists/quickstart.md
+- [x] T029 [P] Run full test suite and confirm all tests pass (`npm test -- --run`)
+- [x] T030 [P] Run production build and verify bundle size < 5MB (`npm run build`)
+- [x] T031 Manual validation: follow all scenarios in specs/001-create-manage-checklists/quickstart.md
 
 ---
 
