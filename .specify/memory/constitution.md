@@ -1,50 +1,81 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+==================
+Version change: N/A → 1.0.0 (initial ratification)
+New sections: Core Principles (4 principles), Quality Standards, Development Workflow, Governance
+Modified principles: None — initial creation
+Templates checked:
+  - .specify/templates/plan-template.md ✅ Constitution Check section dynamically resolved at runtime
+  - .specify/templates/spec-template.md ✅ Aligned with Spec-Driven and Story Independence principles
+  - .specify/templates/tasks-template.md ✅ Aligned with Test-First and Story Independence principles
+Deferred TODOs: None
+-->
+
+# Checklist App Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Spec-Driven Development
+Every feature MUST have an approved `spec.md` before implementation begins. Features without a
+corresponding specification MUST NOT be coded. Specifications MUST be reviewed and all ambiguities
+resolved via `/speckit-clarify` before planning or implementation starts.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+**Rationale**: Prevents scope creep, aligns intent before costly implementation work, and ensures
+features are deliberately designed rather than discovered during coding.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Test-First (TDD) — NON-NEGOTIABLE
+Tests MUST be written before implementation code. The Red-Green-Refactor cycle is mandatory:
+write failing tests → confirm they fail → implement → confirm they pass. No feature is considered
+complete without passing tests that were written before the implementation.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+**Rationale**: Test-first development forces clear interface design, catches integration issues
+early, and produces a living specification proving the system behaves as intended.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Simplicity (YAGNI)
+Solutions MUST start with the simplest approach that satisfies the specification. Abstractions,
+additional frameworks, and speculative complexity MUST NOT be introduced without a concrete,
+present need. Three similar lines of code are preferable to a premature abstraction.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+**Rationale**: Premature complexity is the primary source of maintenance burden and defects.
+Features not yet required must not be built.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. Independent Story Delivery
+Each user story MUST be independently implementable, testable, and demonstrable as a standalone
+MVP slice. Cross-story dependencies MUST be explicitly declared in the spec. No story may block
+another unless that dependency is documented and agreed upon before implementation begins.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**Rationale**: Independent stories enable incremental delivery, reduce integration risk, and
+allow meaningful progress demonstrations at every stage without waiting for all stories to be done.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Quality Standards
+
+All code MUST pass the full test suite before merging. Every pull request MUST include or update
+tests that verify changed behavior. Code review is required for all changes affecting core logic
+or data models. Performance-impacting changes MUST include a rationale in the PR description.
+No `TODO` comments may be merged without a corresponding tracked issue.
+
+## Development Workflow
+
+Features MUST follow this phase sequence — skipping phases requires documented justification:
+
+1. Write the feature description and run `/speckit-specify`.
+2. Resolve ambiguities with `/speckit-clarify` until the spec is unambiguous.
+3. Generate an implementation plan with `/speckit-plan`.
+4. Generate tasks with `/speckit-tasks`.
+5. Implement using `/speckit-implement`.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all ad-hoc practices and informal agreements. Amendments MUST:
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+1. Be proposed with a clear rationale.
+2. Increment the version number per semantic versioning:
+   - **MAJOR**: Principle removal, redefinition, or backward-incompatible governance change.
+   - **MINOR**: New principle or section added, or materially expanded guidance.
+   - **PATCH**: Clarifications, wording improvements, or non-semantic refinements.
+3. Record an updated `Last Amended` date in ISO 8601 format.
+
+All PRs and code reviews MUST verify compliance with the principles above. Complexity violations
+MUST be justified using the Complexity Tracking table in `plan.md`.
+
+**Version**: 1.0.0 | **Ratified**: 2026-04-29 | **Last Amended**: 2026-04-29
