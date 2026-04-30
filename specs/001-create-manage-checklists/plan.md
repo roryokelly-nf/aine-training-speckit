@@ -1,87 +1,104 @@
-# Implementation Plan: Create and Manage Checklists
+# Implementation Plan: [FEATURE]
 
-**Branch**: `001-create-manage-checklists` | **Date**: 2026-04-29 | **Spec**: [spec.md](./spec.md)
-**Input**: Feature specification from `specs/001-create-manage-checklists/spec.md`
+**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+
+**Note**: This template is filled in by the `/speckit-plan` command. See `.specify/templates/plan-template.md` for the execution workflow.
 
 ## Summary
 
-Users need a browser-based checklist application that allows creating named checklists, adding
-items, tracking completion progress, and managing (editing/deleting) both checklists and their
-items. All data persists locally in the browser with no server or authentication required. The
-implementation uses React + TypeScript with localStorage for persistence, delivering a
-single-user offline-capable web application.
+[Extract from feature spec: primary requirement + technical approach from research]
 
 ## Technical Context
 
-**Language/Version**: TypeScript 5.x
-**Primary Dependencies**: React 18, Vite 5, Vitest, React Testing Library
-**Storage**: localStorage (browser-native, offline-capable, zero configuration)
-**Testing**: Vitest + React Testing Library
-**Target Platform**: Web — modern browsers (Chrome 90+, Firefox 88+, Safari 14+)
-**Project Type**: web-app (single-page application, fully client-side)
-**Performance Goals**: All interactions (create, check, delete) render feedback within 100ms
-**Constraints**: Offline-capable; no server; bundle < 5MB; no authentication required
-**Scale/Scope**: Single user per browser instance; no sync or multi-device sharing
+<!--
+  ACTION REQUIRED: Replace the content in this section with the technical details
+  for the project. The structure here is presented in advisory capacity to guide
+  the iteration process.
+-->
+
+**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
+**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
+**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Project Type**: [e.g., library/cli/web-service/mobile-app/compiler/desktop-app or NEEDS CLARIFICATION]  
+**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
+**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-| Principle | Status | Notes |
-|-----------|--------|-------|
-| I. Spec-Driven Development | ✅ PASS | `spec.md` complete; 3 stories; no ambiguities |
-| II. Test-First (TDD) | ✅ PASS | Tasks will enforce Red-Green-Refactor per story |
-| III. Simplicity (YAGNI) | ✅ PASS | localStorage over DB; no backend; no auth; client-only |
-| IV. Independent Story Delivery | ✅ PASS | Each story ships as a standalone MVP slice |
-
-No violations — Complexity Tracking not required.
-
-*Post-Phase 1 re-check*: All principles remain satisfied. localStorage schema is minimal (two
-entity types). Component tree is flat — no unnecessary abstraction layers introduced.
+[Gates determined based on constitution file]
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```text
-specs/001-create-manage-checklists/
-├── plan.md              # This file
-├── research.md          # Phase 0 output
-├── data-model.md        # Phase 1 output
-├── quickstart.md        # Phase 1 output
-├── contracts/
-│   └── ui-contracts.md  # Phase 1 output
-└── tasks.md             # /speckit-tasks output (not created here)
+specs/[###-feature]/
+├── plan.md              # This file (/speckit-plan command output)
+├── research.md          # Phase 0 output (/speckit-plan command)
+├── data-model.md        # Phase 1 output (/speckit-plan command)
+├── quickstart.md        # Phase 1 output (/speckit-plan command)
+├── contracts/           # Phase 1 output (/speckit-plan command)
+└── tasks.md             # Phase 2 output (/speckit-tasks command - NOT created by /speckit-plan)
 ```
 
 ### Source Code (repository root)
+<!--
+  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+  for this feature. Delete unused options and expand the chosen structure with
+  real paths (e.g., apps/admin, packages/something). The delivered plan must
+  not include Option labels.
+-->
 
 ```text
+# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
-├── components/
-│   ├── App.tsx                   # Root component, loads/saves state
-│   ├── ChecklistBoard.tsx        # List of all checklists
-│   ├── ChecklistCard.tsx         # Single checklist with its items
-│   ├── ChecklistItemRow.tsx      # Single item row (check, edit, delete)
-│   ├── CreateChecklistForm.tsx   # New checklist name entry
-│   └── EditableText.tsx          # Reusable inline-editable label
 ├── models/
-│   ├── Checklist.ts              # Checklist type + createChecklist()
-│   └── ChecklistItem.ts          # ChecklistItem type + createChecklistItem()
 ├── services/
-│   └── storage.ts                # localStorage read/write (pure functions)
-└── main.tsx
+├── cli/
+└── lib/
 
 tests/
-├── components/
-│   ├── ChecklistBoard.test.tsx
-│   ├── ChecklistCard.test.tsx
-│   ├── ChecklistItemRow.test.tsx
-│   └── CreateChecklistForm.test.tsx
-└── services/
-    └── storage.test.ts
+├── contract/
+├── integration/
+└── unit/
+
+# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+backend/
+├── src/
+│   ├── models/
+│   ├── services/
+│   └── api/
+└── tests/
+
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+└── tests/
+
+# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+api/
+└── [same as backend above]
+
+ios/ or android/
+└── [platform-specific structure: feature modules, UI flows, platform tests]
 ```
 
-**Structure Decision**: Single-project client-side web app. No backend. Components map
-directly to domain objects (Checklist, ChecklistItem). The `services/storage.ts` module
-isolates all localStorage access so tests can mock it cleanly.
+**Structure Decision**: [Document the selected structure and reference the real
+directories captured above]
+
+## Complexity Tracking
+
+> **Fill ONLY if Constitution Check has violations that must be justified**
+
+| Violation | Why Needed | Simpler Alternative Rejected Because |
+|-----------|------------|-------------------------------------|
+| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
+| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
