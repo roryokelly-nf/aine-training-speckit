@@ -97,3 +97,18 @@ describe('ChecklistCard — rename + delete (US3)', () => {
     vi.restoreAllMocks()
   })
 })
+
+describe('ChecklistCard — share (US1)', () => {
+  it('renders a Share button', () => {
+    render(<ChecklistCard {...makeProps({ onShare: vi.fn() })} />)
+    expect(screen.getByRole('button', { name: /share/i })).toBeInTheDocument()
+  })
+
+  it('calls onShare with the checklist id when Share is clicked', async () => {
+    const onShare = vi.fn()
+    const checklist = createChecklist('Shared List')
+    render(<ChecklistCard {...makeProps({ checklist, onShare })} />)
+    await userEvent.click(screen.getByRole('button', { name: /share/i }))
+    expect(onShare).toHaveBeenCalledWith(checklist.id)
+  })
+})

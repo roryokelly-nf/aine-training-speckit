@@ -12,6 +12,7 @@ interface Props {
   onToggleItem: (itemId: string) => void
   onEditItem: (itemId: string, newText: string) => void
   onDeleteItem: (itemId: string) => void
+  onShare?: (id: string) => void
 }
 
 export function ChecklistCard({
@@ -22,6 +23,7 @@ export function ChecklistCard({
   onToggleItem,
   onEditItem,
   onDeleteItem,
+  onShare,
 }: Props) {
   const [newItem, setNewItem] = useState('')
 
@@ -53,6 +55,15 @@ export function ChecklistCard({
         <div className="flex items-center gap-3 shrink-0 ml-2">
           {total > 0 && (
             <span className="text-xs text-gray-400 tabular-nums">{done}/{total}</span>
+          )}
+          {onShare && (
+            <button
+              aria-label="Share checklist"
+              onClick={() => onShare(checklist.id)}
+              className="text-xs text-gray-400 hover:text-blue-500 transition-colors"
+            >
+              Share
+            </button>
           )}
           <button
             aria-label="Delete checklist"

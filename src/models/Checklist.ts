@@ -5,6 +5,7 @@ export interface Checklist {
   name: string
   items: ChecklistItem[]
   createdAt: string
+  shareData?: string
 }
 
 export function createChecklist(name: string): Checklist {
