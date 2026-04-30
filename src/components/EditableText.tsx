@@ -35,8 +35,12 @@ export function EditableText({ value, onConfirm, placeholder, className }: Props
 
   if (!editing) {
     return (
-      <span className={className} onClick={activate} style={{ cursor: 'pointer' }}>
-        {value || <span style={{ opacity: 0.5 }}>{placeholder}</span>}
+      <span
+        className={`cursor-pointer hover:text-violet-600 transition-colors ${className ?? ''}`}
+        onClick={activate}
+        title="Click to edit"
+      >
+        {value || <span className="opacity-40">{placeholder}</span>}
       </span>
     )
   }
@@ -52,6 +56,7 @@ export function EditableText({ value, onConfirm, placeholder, className }: Props
         if (e.key === 'Enter') confirm()
         if (e.key === 'Escape') cancel()
       }}
+      className="bg-transparent border-b border-violet-400 outline-none text-gray-900 w-full"
     />
   )
 }

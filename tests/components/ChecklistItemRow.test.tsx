@@ -45,7 +45,7 @@ describe('ChecklistItemRow (US2)', () => {
     const { container } = render(
       <ChecklistItemRow {...makeProps({ item: makeItem({ completed: true }) })} />
     )
-    const styledEl = container.querySelector('[style*="line-through"]')
+    const styledEl = container.querySelector('.line-through')
     expect(styledEl).not.toBeNull()
   })
 })

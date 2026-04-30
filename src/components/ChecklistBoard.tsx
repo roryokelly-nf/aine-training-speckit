@@ -24,23 +24,27 @@ export function ChecklistBoard({
   onDeleteItem,
 }: Props) {
   return (
-    <div>
+    <div className="space-y-6">
       <CreateChecklistForm onSubmit={onCreateChecklist} />
       {checklists.length === 0 ? (
-        <p>No checklists yet. Create one above.</p>
+        <p className="text-center text-gray-400 py-16 text-sm">
+          No checklists yet. Create one above.
+        </p>
       ) : (
-        checklists.map((cl) => (
-          <ChecklistCard
-            key={cl.id}
-            checklist={cl}
-            onRename={(name) => onRenameChecklist(cl.id, name)}
-            onDelete={() => onDeleteChecklist(cl.id)}
-            onAddItem={(text) => onAddItem(cl.id, text)}
-            onToggleItem={(itemId) => onToggleItem(cl.id, itemId)}
-            onEditItem={(itemId, text) => onEditItem(cl.id, itemId, text)}
-            onDeleteItem={(itemId) => onDeleteItem(cl.id, itemId)}
-          />
-        ))
+        <div className="space-y-4">
+          {checklists.map((cl) => (
+            <ChecklistCard
+              key={cl.id}
+              checklist={cl}
+              onRename={(name) => onRenameChecklist(cl.id, name)}
+              onDelete={() => onDeleteChecklist(cl.id)}
+              onAddItem={(text) => onAddItem(cl.id, text)}
+              onToggleItem={(itemId) => onToggleItem(cl.id, itemId)}
+              onEditItem={(itemId, text) => onEditItem(cl.id, itemId, text)}
+              onDeleteItem={(itemId) => onDeleteItem(cl.id, itemId)}
+            />
+          ))}
+        </div>
       )}
     </div>
   )

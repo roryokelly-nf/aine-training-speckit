@@ -62,18 +62,22 @@ export function App() {
   }
 
   return (
-    <main>
-      <h1>Checklists</h1>
-      <ChecklistBoard
-        checklists={checklists}
-        onCreateChecklist={handleCreate}
-        onRenameChecklist={handleRename}
-        onDeleteChecklist={handleDelete}
-        onAddItem={handleAddItem}
-        onToggleItem={handleToggleItem}
-        onEditItem={handleEditItem}
-        onDeleteItem={handleDeleteItem}
-      />
-    </main>
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white border-b border-gray-200 px-6 py-4">
+        <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">Checklists</h1>
+      </header>
+      <main className="max-w-3xl mx-auto px-6 py-8">
+        <ChecklistBoard
+          checklists={checklists}
+          onCreateChecklist={handleCreate}
+          onRenameChecklist={handleRename}
+          onDeleteChecklist={handleDelete}
+          onAddItem={handleAddItem}
+          onToggleItem={handleToggleItem}
+          onEditItem={handleEditItem}
+          onDeleteItem={handleDeleteItem}
+        />
+      </main>
+    </div>
   )
 }
