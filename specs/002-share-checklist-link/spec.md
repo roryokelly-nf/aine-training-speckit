@@ -17,9 +17,10 @@ A checklist owner generates a shareable link for one of their checklists and cop
 
 **Acceptance Scenarios**:
 
-1. **Given** a user has an existing checklist, **When** they trigger the Share action on it, **Then** a shareable link is generated and displayed with a copy-to-clipboard button.
-2. **Given** a shareable link has been generated and copied, **When** it is opened in a new browser session, **Then** the checklist is displayed with all its items and their current completion states.
-3. **Given** a checklist containing no items, **When** the user generates a shareable link and opens it, **Then** the empty checklist is displayed without errors.
+1. **Given** a user has an existing checklist with no previously generated link, **When** they trigger the Share action, **Then** a shareable link is generated, a one-time privacy notice is shown explaining that checklist content is visible in the URL, and a copy-to-clipboard button is displayed.
+2. **Given** a checklist that already has a shareable link, **When** the owner triggers the Share action again, **Then** the same existing link is shown (no notice, no new link generated).
+3. **Given** a shareable link has been generated and copied, **When** it is opened in a new browser session, **Then** the checklist is displayed with all its items and their current completion states.
+4. **Given** a checklist containing no items, **When** the user generates a shareable link and opens it, **Then** the empty checklist is displayed without errors.
 
 ---
 
@@ -36,6 +37,7 @@ A recipient opens a shared checklist link and can read the checklist contents wi
 1. **Given** a valid shared link, **When** a recipient opens it, **Then** they see the checklist name, all items, and the completion state of each item.
 2. **Given** a valid shared link, **When** it is opened on a different device or browser, **Then** the checklist is displayed correctly.
 3. **Given** an invalid or malformed shared link, **When** a recipient opens it, **Then** they see a clear error message indicating the link is not valid.
+4. **Given** a recipient has checked some items on a shared checklist, **When** they close and reopen the same link, **Then** their previously checked items remain checked.
 
 ---
 
@@ -49,12 +51,14 @@ A recipient opens a shared checklist link and can read the checklist contents wi
 
 ### Functional Requirements
 
-- **FR-001**: Users MUST be able to generate a shareable link for any of their existing checklists.
+- **FR-001**: Users MUST be able to generate a shareable link for any of their existing checklists. If a link already exists for that checklist, the same link MUST be returned rather than generating a new one.
 - **FR-002**: The shareable link MUST allow any recipient to access the checklist without requiring an account or login.
 - **FR-003**: The shared view MUST display the checklist name, all items, and the completion state of each item.
 - **FR-004**: The shareable link MUST be copyable via a single action (e.g., a copy-to-clipboard button).
 - **FR-005**: Opening an invalid or malformed shared link MUST display a clear, user-friendly error message.
-- **FR-006**: Recipients MUST be able to check and uncheck items on a shared checklist; their changes are local to their own session and do not affect the owner's checklist.
+- **FR-006**: Recipients MUST be able to check and uncheck items on a shared checklist; their changes do not affect the owner's checklist.
+- **FR-007**: A recipient's checked/unchecked item states MUST persist in their browser across page refreshes and revisits to the same shared link.
+- **FR-008**: When a shareable link is generated for the first time for a given checklist, the owner MUST be shown a one-time privacy notice stating that checklist content (name and items) will be visible in the URL.
 
 ### Key Entities
 
@@ -70,6 +74,14 @@ A recipient opens a shared checklist link and can read the checklist contents wi
 - **SC-003**: 100% of valid shared links display the correct checklist name, items, and completion states.
 - **SC-004**: Recipients can access shared checklists without creating an account or providing any personal information.
 
+## Clarifications
+
+### Session 2026-04-30
+
+- Q: Does recipient progress (checked/unchecked items) persist between sessions, or reset on each visit? → A: Persistent — saved in the recipient's browser, survives refresh and close.
+- Q: When an owner triggers Share on a checklist that already has a link, is the same link returned or a new one generated? → A: Same link — repeating Share always returns the previously generated link for that checklist.
+- Q: Should the owner be warned that checklist content is visible in the URL? → A: Yes — display a one-time privacy notice when generating a link for the first time.
+
 ## Assumptions
 
 - Shared links encode sufficient information to reconstruct the checklist for the recipient independently of the owner's local session.
@@ -77,4 +89,4 @@ A recipient opens a shared checklist link and can read the checklist contents wi
 - The shared view is accessible on any modern browser without installation.
 - No real-time synchronisation between the owner's edits and the shared link view is in scope for v1.
 - Sharing is a point-in-time snapshot: the shared link reflects the checklist state at the time the link was generated or opened, not a continuously live-updating view.
-- Each checklist has at most one active shared link at a time (no multiple link management).
+- Each checklist has exactly one shareable link; triggering Share again returns the same link (no multiple link management, no link versioning).
